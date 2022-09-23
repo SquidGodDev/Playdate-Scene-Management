@@ -28,14 +28,15 @@ function SceneManager:switchScene(scene, ...)
     self.transitioning = true
 
     self.newScene = scene
-    self.sceneArgs = ...
+    local args = {...}
+    self.sceneArgs = args
 
     self:startTransition()
 end
 
 function SceneManager:loadNewScene()
     self:cleanupScene()
-    self.newScene(self.sceneArgs)
+    self.newScene(table.unpack(self.sceneArgs))
 end
 
 function SceneManager:cleanupScene()
