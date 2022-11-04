@@ -56,6 +56,11 @@ function SceneManager:startTransition()
         transitionTimer.timerEndedCallback = function()
             self.transitioning = false
             self.transitionSprite:remove()
+            -- Temp fix to resolve bug with sprite artifacts/smearing after transition
+            local allSprites = gfx.sprite.getAllSprites()
+            for i=1,#allSprites do
+                allSprites[i]:markDirty()
+            end
         end
     end
 end
